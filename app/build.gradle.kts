@@ -1,9 +1,13 @@
+// app/build.gradle.kts
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
+    // Gunakan alias jika sudah didefinisikan di versions.toml
+    alias(libs.plugins.kotlin.kapt)
 }
 
+// 1. BLOK ANDROID
 android {
     namespace = "com.example.test_lab_week_12"
     compileSdk = 36
@@ -14,7 +18,6 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,15 +30,22 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    
+    kotlin {
+        jvmToolchain(11)
     }
+
 }
 
+
+
+
+// 3. BLOK DEPENDENCIES (Di luar Android)
 dependencies {
 
     implementation(libs.androidx.recyclerview)
@@ -53,6 +63,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
